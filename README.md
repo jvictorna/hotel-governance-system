@@ -31,6 +31,42 @@ Esta atualização consolida a maturidade da arquitetura e a implementação de 
 
 ---
 
+## 🔒 Atualizações da Versão 1.4 — Protótipo Final
+- **Travas de Segurança Completas:** Fechamento de todas as brechas operacionais.
+- **Validação de Entradas:** Checklists passam a aceitar apenas S ou N.
+- **Correção do Fluxo Pós Manutenção:** Inconsistência do status 9 resolvida.
+- **Modularização Total:** Bloco principal limpo e preparado para expansão.
+
+---
+
+## 🏨 Atualizações da Versão 2.0 — Sistema Real
+
+Esta versão representa a evolução do protótipo acadêmico para um sistema
+baseado na estrutura real de uma pousada, expandindo de 5 quartos 
+fictícios para 38 quartos reais distribuídos em 4 andares.
+
+- **Expansão para 38 Quartos Reais:** O sistema passa a operar com a
+  numeração real dos quartos (02, 03, 101, 208, 311...), substituindo
+  os 5 quartos fictícios do protótipo.
+
+- **Vetor de Mapeamento:** Implementação do vetor `numerosQuartos` que
+  associa cada posição interna à numeração real do quarto, permitindo
+  que o sistema trabalhe com números não sequenciais.
+
+- **Algoritmo de Busca Sequencial:** O sistema percorre o vetor de
+  mapeamento para localizar a posição interna correspondente ao número
+  digitado pelo usuário, introduzindo o conceito de busca por índice.
+
+- **Organização por Andar:** A exibição dos quartos foi reestruturada
+  em 4 seções — Térreo, 1º, 2º e 3º Andar — refletindo a estrutura
+  física do sistema e facilitando a leitura operacional.
+
+- **Validação Dinâmica:** A validação de quarto inválido deixou de
+  verificar um intervalo fixo (1 a 5) e passou a verificar se o número
+  digitado existe de fato no cadastro do sistema.
+
+---
+
 ## 🛠️ Conceitos de ADS Aplicados
 - **Estruturas de Dados:** Uso de Vetores (Arrays) para gerenciar os estados das unidades.
 - **Lógica de Programação:** Estruturas de decisão complexas e laços de repetição.
@@ -47,7 +83,7 @@ Esta atualização consolida a maturidade da arquitetura e a implementação de 
 
 ## 📅 Próximos Passos
 - ~~Correção e fechamento do protótipo de 5 quartos (v1.4)~~ ✅
-- Expansão para os 38 quartos reais distribuídos por andar (v2.0)
+- ~~Expansão para os 38 quartos reais distribuídos por andar (v2.0)~~ ✅
 - Migração do sistema para Java, aplicando Orientação a Objetos
 - Geração de relatório final de ocupação e produtividade
 
@@ -60,3 +96,4 @@ Esta atualização consolida a maturidade da arquitetura e a implementação de 
 | v1.1 | Modularização — procedimentos separados, interface aprimorada, início das travas |
 | v1.3 | Maturidade — 9 status, inteligência de estados, travas avançadas, checklists dinâmicos |
 | v1.4 | Protótipo final — travas completas, validação de entradas, correção do fluxo pós manutenção e modularização total |
+| v2.0 | Sistema real — 38 quartos da pousada, organizados por andar, com busca por número real |
