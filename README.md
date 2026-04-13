@@ -46,7 +46,7 @@ Esta atualização consolida a maturidade da arquitetura e a implementação de 
 ---
 
 ## 📅 Próximos Passos
-- Correção e fechamento do protótipo de 5 quartos (v1.4)
+- ~~Correção e fechamento do protótipo de 5 quartos (v1.4)~~ ✅
 - Expansão para os 38 quartos reais distribuídos por andar (v2.0)
 - Migração do sistema para Java, aplicando Orientação a Objetos
 - Geração de relatório final de ocupação e produtividade
@@ -59,3 +59,4 @@ Esta atualização consolida a maturidade da arquitetura e a implementação de 
 | v1.0 | Protótipo inicial — 3 status, fluxo básico, lógica centralizada |
 | v1.1 | Modularização — procedimentos separados, interface aprimorada, início das travas |
 | v1.3 | Maturidade — 9 status, inteligência de estados, travas avançadas, checklists dinâmicos |
+| v1.4 | Protótipo final — travas completas, validação de entradas, correção do fluxo pós manutenção e modularização total |
