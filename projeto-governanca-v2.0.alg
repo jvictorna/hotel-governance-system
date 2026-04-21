@@ -471,6 +471,7 @@ FimProcedimento
 
 Procedimento RealizarRevisao()
 Inicio
+          statusAnterior[posicao] <- statusQuartos[posicao]
           statusQuartos[posicao] <- 6
           Escreval("============ A T E N Ç Ã O ==============")
           Escreval("O quarto ", numQuarto, " precisa de REVISÃO DE LONGA DATA. ")
@@ -566,7 +567,6 @@ Inicio
 
    Se (opcao = 3) Entao
       Se (statusQuartos[posicao] <> 3) Entao
-        Se(statusQuartos[posicao] <> 6) Entao
           Se (statusQuartos[posicao] <> 9) Entao
       Escreval("============ A T E N Ç Ã O ==============")
       Escreval("ERRO: Este quarto não está apto para finalização! ")
@@ -575,7 +575,6 @@ Inicio
       Leia(pausa_fake)
       opcao <- -1
           FimSe
-        FimSe
       FimSe
    FimSe
    
