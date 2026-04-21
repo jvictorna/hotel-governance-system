@@ -76,6 +76,7 @@ fictícios para 38 quartos reais distribuídos em 4 andares.
 
 ## 🧰 Ferramentas Utilizadas
 - **VisuAlg 3.0:** Ambiente de desenvolvimento para Portugol.
+- **Java + NetBeans IDE 29:** Ambiente de desenvolvimento para a migração do sistema.
 - **Git & GitHub:** Versionamento e hospedagem do portfólio.
 - **Assistente de IA:** Apoio na estruturação da documentação e revisão de lógica.
 
@@ -84,8 +85,9 @@ fictícios para 38 quartos reais distribuídos em 4 andares.
 ## 📅 Próximos Passos
 - ~~Correção e fechamento do protótipo de 5 quartos (v1.4)~~ ✅
 - ~~Expansão para os 38 quartos reais distribuídos por andar (v2.0)~~ ✅
-- Migração do sistema para Java, aplicando Orientação a Objetos
+- Migração do sistema para Java — em andamento 🔄
 - Geração de relatório final de ocupação e produtividade
+- Implementação de interface mobile
 
 ---
 
