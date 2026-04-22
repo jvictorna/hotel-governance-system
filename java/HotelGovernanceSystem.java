@@ -29,12 +29,12 @@ public class HotelGovernanceSystem {
         System.out.println("=====================================");
         System.out.println("");
         
-        System.out.println("1. Check-out (ACIONAR CAMAREIRA)");
-        System.out.println("2. Iniciar limpeza (CAMAREIRA NO QUARTO) ");
-        System.out.println("3. Finalizar limpeza (INICIAR CHECK-LIST) ");
-        System.out.println("4. Check-in (HÓSPEDE NOVO - NÃO INCOMODAR) ");
-        System.out.println("5. Arrumação solicitada (ACIONAR CAMAREIRA) ");
-        System.out.println("6. Revisão geral (ACIONAR CAMAREIRA) ");
+        System.out.println("1. Check-out (ACIONAR CAMAREIRA - II) ");
+        System.out.println("2. Arrumação solicitada (ACIONAR CAMAREIRA - I) ");
+        System.out.println("3. Iniciar limpeza (CAMAREIRA NO QUARTO) ");
+        System.out.println("4. Finalizar limpeza (INICIAR CHECK-LIST) ");
+        System.out.println("5. Check-in (HÓSPEDE NOVO - NÃO INCOMODAR) ");
+        System.out.println("6. Revisão geral (ACIONAR CAMAREIRA - III) ");
         System.out.println("7. Bloquear para manutenção (ACIONAR TÉCNICO) ");
         System.out.println("8. Liberar quarto pós-manutenção ");
         System.out.println("0. Sair ");
@@ -46,22 +46,22 @@ public class HotelGovernanceSystem {
         
         switch (opcao) { 
             case 1:
-                System.out.println("CHECK-OUT REALIZADO - Aguardando limpeza ");
+                System.out.println("CHECK-OUT REALIZADO - Aguardando limpeza (II) ");
                 break;
             case 2:
-                System.out.println("LIMPEZA INICIADA - Aguardando conclusão ");
+                System.out.println("ARRUMAÇÃO PENDENTE - Hóspede solicitou arrumação (I) ");
                 break;
             case 3:
-                System.out.println("LIMPEZA FINALIZADA - Iniciar Check-list ");
+                System.out.println("LIMPEZA INICIADA - Aguardando conclusão ");
                 break;
             case 4: 
-                System.out.println("CHECK-IN REALIZADO - Quarto ocupado ");
+                System.out.println("LIMPEZA FINALIZADA - Iniciar check-list ");
                 break;
             case 5:
-                System.out.println("ARRUMAÇÃO PENDENTE - Hóspede solicitou arrumação ");
+                System.out.println("CHECK-IN REALIZADO - Quarto ocupado ");
                 break; 
             case 6: 
-                System.out.println("REVISÃO GERAL NECESSÁRIA - Aguardando limpeza ");
+                System.out.println("REVISÃO GERAL NECESSÁRIA - Aguardando limpeza (III) ");
                 break;
             case 7: 
                 System.out.println("BLOQUEADO PARA MANUTENÇÃO - Aguardando conclusão do técnico ");
