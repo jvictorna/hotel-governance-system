@@ -85,7 +85,7 @@ fictícios para 38 quartos reais distribuídos em 4 andares.
 ## 📅 Próximos Passos
 - ~~Correção e fechamento do protótipo de 5 quartos (v1.4)~~ ✅
 - ~~Expansão para os 38 quartos reais distribuídos por andar (v2.0)~~ ✅
-- Migração do sistema para Java — em andamento 🔄
+- ~~Migração do sistema para Java~~ ✅
 - Geração de relatório final de ocupação e produtividade
 - Implementação de interface mobile
 
@@ -99,3 +99,4 @@ fictícios para 38 quartos reais distribuídos em 4 andares.
 | v1.3 | Maturidade — 9 status, inteligência de estados, travas avançadas, checklists dinâmicos |
 | v1.4 | Protótipo final — travas completas, validação de entradas, correção do fluxo pós manutenção e modularização total |
 | v2.0 | Sistema real — 38 quartos da pousada, organizados por andar, com busca por número real |
+| v2.0 Java | Migração completa para Java — métodos, travas, checklists e loop principal |
