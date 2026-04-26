@@ -100,3 +100,4 @@ fictícios para 38 quartos reais distribuídos em 4 andares.
 | v1.4 | Protótipo final — travas completas, validação de entradas, correção do fluxo pós manutenção e modularização total |
 | v2.0 | Sistema real — 38 quartos da pousada, organizados por andar, com busca por número real |
 | v2.0 Java | Migração completa para Java — métodos, travas, checklists e loop principal |
+| v2.1 Java | Correções pós-teste — tratamento de exceções para entradas inválidas e reorganização dos checklists |
