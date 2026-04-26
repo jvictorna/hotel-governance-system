@@ -9,8 +9,9 @@ import java.util.Scanner;
  * Desenvolvido como projeto prático do curso de ADS
  * 
  * @author João Adorno
- * @version 2.0
+ * @version 2.1
  */
+
 public class HotelGovernanceSystem {
     
     static int[] statusQuartos = new int[38];
@@ -168,23 +169,40 @@ static void exibirMenu() {
         
 } // Fechamento exibirMenu();
 
-static void solicitarDados(){ 
+static void solicitarDados() {
     if (opcao >= 1 && opcao <= 8) {
         System.out.print("Digite o número do quarto: ");
-        numQuarto = teclado.nextInt();
+        
+        try {
+            numQuarto = teclado.nextInt();
+        } catch (Exception e) {
+            System.out.println("=========== A T E N Ç Ã O ================");
+            System.out.println("ERRO: Digite apenas números!");
+            System.out.println("==========================================");
+            System.out.println(" --- Pressione ENTER para continuar --- ");
+            teclado.next();
+            teclado.nextLine();
+            teclado.nextLine();
+            opcao = -1;
+            return; 
+        }
         
         posicao = -1;
         for (int i = 0; i < 38; i++) {
             if (numerosQuartos[i] == numQuarto) {
-                posicao = i;     
+                posicao = i;
             }
         }
-         if (posicao == -1) {
-             System.out.println("QUARTO INVÁLIDO — verifique o número e tente novamente");
-             opcao = -1;
-         }     
+        if (posicao == -1) {
+            System.out.println("=========== A T E N Ç Ã O ================");
+            System.out.println("QUARTO INVÁLIDO — verifique o número e tente novamente");
+            System.out.println("==========================================");
+            System.out.println(" --- Pressione ENTER para continuar --- ");
+            teclado.nextLine();
+            teclado.nextLine();
+            opcao = -1;
+        }
     }
-    
 } // Fechamento solicitarDados();
     
 static void validarTrava() {
@@ -399,6 +417,7 @@ static void manutencaoGer() {
         System.out.println("");
         System.out.println("INDIQUE A OPÇÃO ADEQUADA: ");
         opcaoManut = teclado.nextInt();
+        teclado.nextLine();
         
         switch (opcaoManut) { 
             case 1: 
@@ -408,7 +427,6 @@ static void manutencaoGer() {
                 System.out.println("==========================================");
                 System.out.println(" --- Pressione ENTER para continuar --- ");
                 teclado.nextLine();
-                teclado.nextLine();
             break;
             case 2: 
                 statusQuartos[posicao] = 1; 
@@ -416,7 +434,6 @@ static void manutencaoGer() {
                 System.out.println("       MANUTENÇÃO FINALIZADA              ");
                 System.out.println("==========================================");
                 System.out.println(" --- Pressione ENTER para continuar --- ");
-                teclado.nextLine();
                 teclado.nextLine();
             break; 
             case 3: 
@@ -428,7 +445,6 @@ static void manutencaoGer() {
                 System.out.println("=========== A T E N Ç Ã O ================");
                 System.out.println("    AGUARDANDO INSPEÇÃO DA GOVERNANÇA     ");
                 System.out.println("==========================================");
-                teclado.nextLine();
                 teclado.nextLine();
             break;
             default: System.out.println("ERRO: Verifique a opção digitada e tente novamente ");
@@ -490,7 +506,6 @@ static void checkListRapido() {
     System.out.println("==========================================");
     System.out.println(" --- Pressione ENTER para continuar --- ");
     teclado.nextLine();
-    teclado.nextLine();
             
 } // Fechamento checkListtRapido(); 
 
@@ -505,12 +520,7 @@ static void checkListGeral() {
         System.out.print("[ ] JANELAS/CORTINAS (S/N) .........: ");
         cortina = teclado.next();
     } while (!cortina.equalsIgnoreCase("S") && !cortina.equalsIgnoreCase("N"));
-    
-    do {
-        System.out.print("[ ] TESTE AR CONDICIONADO (S/N) ....: ");
-        arCondicionado = teclado.next();
-    } while (!arCondicionado.equalsIgnoreCase("S") && !arCondicionado.equalsIgnoreCase("N"));
-    
+        
     do {
         System.out.print("[ ] HIGIENIZAÇÃO COLCHÃO (S/N) .....: ");
         cama = teclado.next();
@@ -520,6 +530,11 @@ static void checkListGeral() {
         System.out.print("[ ] TESTE LÂMPADAS/TOMADAS (S/N) ...: ");
         lampada = teclado.next();        
     } while (!lampada.equalsIgnoreCase("S") && !lampada.equalsIgnoreCase("N"));
+    
+    do {
+        System.out.print("[ ] TESTE AR CONDICIONADO (S/N) ....: ");
+        arCondicionado = teclado.next();
+    } while (!arCondicionado.equalsIgnoreCase("S") && !arCondicionado.equalsIgnoreCase("N"));
     
     do {
         System.out.print("[ ] TESTE TELEVISÃO (S/N) ..........: ");
@@ -536,7 +551,6 @@ static void checkListGeral() {
     System.out.println("          CHECK LIST CONCLUÍDO!           ");
     System.out.println("==========================================");
     System.out.println(" --- Pressione ENTER para continuar --- ");
-    teclado.nextLine();
     teclado.nextLine();
     
 } // Fechamento checkListGeral();
@@ -578,7 +592,6 @@ static void realizarCheckList() {
     System.out.println("          CHECK LIST CONCLUÍDO!           ");
     System.out.println("==========================================");
     System.out.println(" --- Pressione ENTER para continuar --- ");
-    teclado.nextLine();
     teclado.nextLine();
     
 } // Fechamento realizarCheckList();
@@ -681,7 +694,7 @@ static void realizarInspecao() {
                 }                       
         }  else {
              System.out.println("=========== A T E N Ç Ã O ================");
-             System.out.println("Check-list não iniciado! ");
+             System.out.println("Check-list NÃO iniciado! ");
              System.out.println("===========================================");
              System.out.println(" --- Pressione ENTER para continuar --- ");  
              teclado.nextLine();
@@ -701,7 +714,18 @@ static void realizarInspecao() {
         exibirMenu();
         
         System.out.print("Selecione a opção: ");
-        opcao = teclado.nextInt();
+        try {
+            opcao = teclado.nextInt();
+        } catch (Exception e) {
+            System.out.println("=========== A T E N Ç Ã O ================");
+            System.out.println("ERRO: Digite apenas números! ");
+            System.out.println("==========================================");
+            System.out.println(" --- Pressione ENTER para continuar --- ");
+        teclado.next(); 
+        teclado.nextLine();
+        teclado.nextLine();
+        opcao = -1;
+}
         
         solicitarDados();
         validarTrava();
