@@ -67,10 +67,51 @@ fictícios para 38 quartos reais distribuídos em 4 andares.
 
 ---
 
+## ☕ Atualizações da Versão 2.0 Java — Migração para Java
+Esta versão representa a migração completa do sistema de Portugol para Java,
+mantendo todas as funcionalidades da versão em Portugol.
+
+- **Migração Completa:** Toda a lógica migrada para Java com métodos 
+  estáticos organizados em classe única.
+- **Travas e Checklists:** Todas as travas de segurança e checklists 
+  dinâmicos preservados e adaptados para Java.
+- **Loop Principal:** Fluxo de operação implementado com do/while e 
+  switch/case, mantendo a experiência operacional do sistema original.
+
+---
+
+## 🔧 Atualizações da Versão 2.1 Java — Correções Pós-Teste
+- **Tratamento de Exceções:** Adição de try/catch para entradas inválidas
+  nos campos de opção e número do quarto — evita travamento da aplicação
+  ao receber letras.
+- **Mensagem de Quarto Inválido:** Pausa adequada adicionada após mensagem
+  de erro para quarto não cadastrado.
+- **Reorganização dos Checklists:** Sequência dos itens reorganizada para
+  refletir a ordem operacional real da governança.
+
+---
+
+## 🎯 Atualizações da Versão 3.0 Java POO — Orientação a Objetos
+Migração em andamento para Programação Orientada a Objetos, introduzindo
+classes encapsuladas que tornam o sistema mais organizado e extensível.
+
+- **Classe Quarto:** Encapsulamento completo com atributos privados,
+  getters, setters e métodos operacionais dedicados — cada quarto agora
+  é um objeto com comportamento próprio.
+- **Memória de Estado:** O controle do `statusAnterior` migrou para
+  dentro da própria classe `Quarto`, através do método `setStatusComMemoria()`.
+- **Array de Objetos:** Substituição dos três arrays paralelos por um
+  único array de objetos `Quarto[]`, tornando o código mais limpo e legível.
+- **Descrição de Status:** Método `getDescricaoStatus()` encapsulado
+  dentro da classe `Quarto` — cada quarto sabe descrever seu próprio estado.
+
+---
+
 ## 🛠️ Conceitos de ADS Aplicados
 - **Estruturas de Dados:** Uso de Vetores (Arrays) para gerenciar os estados das unidades.
 - **Lógica de Programação:** Estruturas de decisão complexas e laços de repetição.
 - **Engenharia de Requisitos:** Modelagem de um fluxo real de hotelaria para um ambiente de código.
+- **Orientação a Objetos:** Encapsulamento, classes, objetos e métodos aplicados na refatoração do sistema.
 
 ---
 
@@ -86,8 +127,10 @@ fictícios para 38 quartos reais distribuídos em 4 andares.
 - ~~Correção e fechamento do protótipo de 5 quartos (v1.4)~~ ✅
 - ~~Expansão para os 38 quartos reais distribuídos por andar (v2.0)~~ ✅
 - ~~Migração do sistema para Java~~ ✅
+- Refatoração para Java com Orientação a Objetos (POO) 🔄
+- Integração com banco de dados MySQL para persistência dos dados
+- Desenvolvimento de interface mobile com notificações em tempo real
 - Geração de relatório final de ocupação e produtividade
-- Implementação de interface mobile
 
 ---
 
@@ -101,3 +144,4 @@ fictícios para 38 quartos reais distribuídos em 4 andares.
 | v2.0 | Sistema real — 38 quartos da pousada, organizados por andar, com busca por número real |
 | v2.0 Java | Migração completa para Java — métodos, travas, checklists e loop principal |
 | v2.1 Java | Correções pós-teste — tratamento de exceções para entradas inválidas e reorganização dos checklists |
+| v3.0 Java POO | Migração em andamento — classe Quarto encapsulada com métodos operacionais |
