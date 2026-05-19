@@ -1,11 +1,13 @@
 
 package hotelgovernancesystempoo;
 
+import java.util.Scanner;
+
 /**
  *
  * @author João Adôrno
  */
-public class Quarto {
+public abstract class Quarto {
 
     private int numero;
     private int andar;
@@ -64,8 +66,12 @@ public class Quarto {
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
-
+    
     public void setStatus(int novoStatus) {
+        this.status = novoStatus;
+    }
+
+    public void setStatusComMemoria(int novoStatus) {
         this.statusAnterior = this.status;
         this.status = novoStatus;
     }
@@ -106,6 +112,12 @@ public class Quarto {
         }
     }
     
+    public abstract boolean executarCheckListPosCheckout(Scanner teclado);
+    
+    public abstract boolean executarCheckListArrumacao(Scanner teclado);
+    
+    public abstract boolean executarCheckListRevisaoGeral(Scanner teclado);
+    
     public void realizarCheckin() {
         setStatus(4);
 }
@@ -115,7 +127,7 @@ public class Quarto {
 }
 
     public void iniciarLimpeza() {
-        setStatus(3);
+        setStatusComMemoria(3);
 }
 
     public void solicitarArrumacao() {
@@ -123,7 +135,7 @@ public class Quarto {
 }
 
     public void solicitarRevisaoGeral() {
-        setStatus(6);
+        setStatusComMemoria(6);
 }
 
     public void bloquearManutencao() {
@@ -135,11 +147,13 @@ public class Quarto {
 }
 
     public void solicitarRevisaoPosManutencao() {
-        setStatus(9);
+        setStatusComMemoria(9);
 }
 
     public void liberarQuarto() {
         setStatus(1);
 }
+    
+
 
 }

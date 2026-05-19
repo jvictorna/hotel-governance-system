@@ -16,8 +16,6 @@ public class HotelGovernanceSystemPOO {
 
     static int opcao, numQuarto, opcaoManut, posicao;
 
-    static String frigobar, arCondicionado, televisao;
-    static String cama, enxoval, toalha, banheiro, lixo, lampada, cortina;
     static String resposta;
 
     static Scanner teclado = new Scanner(System.in);
@@ -26,44 +24,44 @@ public class HotelGovernanceSystemPOO {
     
     static void inicializarQuartos() {
     
-    quartos[0] = new Quarto(2, 0, "Standard Sem Varanda", "Triplo", "Pequeno"); 
-    quartos[1] = new Quarto(3, 0, "Standard Sem Varanda", "Triplo" , "Pequeno");
-    quartos[2] = new Quarto(4, 0, "Standard Sem Varanda", "Triplo", "Pequeno");
-    quartos[3] = new Quarto(5, 0, "Standard Sem Varanda", "Casal", "Pequeno");
-    quartos[4] = new Quarto(101, 1, "Varanda Lateral", "Casal", "Médio");
-    quartos[5] = new Quarto(102, 1, "Varanda Lateral", "Casal", "Médio");
-    quartos[6] = new Quarto(103, 1, "Varanda Lateral", "Casal", "Médio");
-    quartos[7] = new Quarto(104, 1, "Varanda Lateral", "Casal", "Médio");
-    quartos[8] = new Quarto(105, 1, "Varanda Lateral", "Casal", "Médio");
-    quartos[9] = new Quarto(106, 1, "Varanda Lateral", "Casal", "Médio");
-    quartos[10] = new Quarto(107, 1, "Varanda Lateral", "Casal", "Médio");
-    quartos[11] = new Quarto(108, 1, "Varanda Frente Mar", "Casal", "Médio");
-    quartos[12] = new Quarto(109, 1, "Varanda Frente Mar", "Casal", "Médio");
-    quartos[13] = new Quarto(110, 1, "Standard Sem Varanda", "Quádruplo", "Extra Grande");
-    quartos[14] = new Quarto(111, 1, "Standard Sem Varanda", "Quádruplo", "Extra Grande");
-    quartos[15] = new Quarto(112, 1, "Standard Sem Varanda", "Quíntuplo", "Extra Grande");
-    quartos[16] = new Quarto(201, 2, "Varanda Lateral", "Casal", "Médio");
-    quartos[17] = new Quarto(202, 2, "Varanda Lateral", "Casal", "Médio");
-    quartos[18] = new Quarto(203, 2, "Varanda Lateral", "Triplo", "Médio");
-    quartos[19] = new Quarto(204, 2, "Varanda Lateral", "Triplo", "Médio");
-    quartos[20] = new Quarto(205, 2, "Varanda Lateral", "Triplo", "Médio");
-    quartos[21] = new Quarto(206, 2, "Varanda Lateral", "Triplo", "Médio");
-    quartos[22] = new Quarto(207, 2, "Varanda Lateral", "Triplo", "Médio");
-    quartos[23] = new Quarto(208, 2, "Luxo Varanda Frente Mar", "Casal", "Grande");
-    quartos[24] = new Quarto(209, 2, "Standard Sem Varanda", "Quádruplo", "Extra Grande");
-    quartos[25] = new Quarto(210, 2, "Standard Sem Varanda", "Quádruplo", "Extra Grande");
-    quartos[26] = new Quarto(211, 2, "Standard Sem Varanda", "Quíntuplo", "Extra Grande");
-    quartos[27] = new Quarto(301, 3, "Standard Sem Varanda", "Quíntuplo", "Extra Grande");
-    quartos[28] = new Quarto(302, 3, "Standard Sem Varanda", "Triplo", "Pequeno");
-    quartos[29] = new Quarto(303, 3, "Standard Sem Varanda", "Casal", "Pequeno");
-    quartos[30] = new Quarto(304, 3, "Standard Sem Varanda", "Casal", "Pequeno");
-    quartos[31] = new Quarto(305, 3, "Luxo Sem Varanda", "Casal", "Grande");
-    quartos[32] = new Quarto(306, 3, "Standard Sem Varanda", "Casal", "Pequeno");
-    quartos[33] = new Quarto(307, 3, "Varanda Frente Mar", "Triplo", "Médio");
-    quartos[34] = new Quarto(308, 3, "Varanda Frente Mar", "Triplo", "Médio");
-    quartos[35] = new Quarto(309, 3, "Standard Sem Varanda", "Quádruplo", "Extra Grande");
-    quartos[36] = new Quarto(310, 3, "Standard Sem Varanda", "Quádruplo", "Extra Grande");
-    quartos[37] = new Quarto(311, 3, "Standard Sem Varanda", "Quíntuplo", "Extra Grande");
+    quartos[0] = new QuartoComum(2, 0, "Standard Sem Varanda", "Triplo", "Pequeno"); 
+    quartos[1] = new QuartoComum(3, 0, "Standard Sem Varanda", "Triplo" , "Pequeno");
+    quartos[2] = new QuartoComum(4, 0, "Standard Sem Varanda", "Triplo", "Pequeno");
+    quartos[3] = new QuartoComum(5, 0, "Standard Sem Varanda", "Casal", "Pequeno");
+    quartos[4] = new QuartoComum(101, 1, "Varanda Lateral", "Casal", "Médio");
+    quartos[5] = new QuartoComum(102, 1, "Varanda Lateral", "Casal", "Médio");
+    quartos[6] = new QuartoComum(103, 1, "Varanda Lateral", "Casal", "Médio");
+    quartos[7] = new QuartoComum(104, 1, "Varanda Lateral", "Casal", "Médio");
+    quartos[8] = new QuartoComum(105, 1, "Varanda Lateral", "Casal", "Médio");
+    quartos[9] = new QuartoComum(106, 1, "Varanda Lateral", "Casal", "Médio");
+    quartos[10] = new QuartoComum(107, 1, "Varanda Lateral", "Casal", "Médio");
+    quartos[11] = new QuartoComum(108, 1, "Varanda Frente Mar", "Casal", "Médio");
+    quartos[12] = new QuartoComum(109, 1, "Varanda Frente Mar", "Casal", "Médio");
+    quartos[13] = new QuartoComum(110, 1, "Standard Sem Varanda", "Quádruplo", "Extra Grande");
+    quartos[14] = new QuartoComum(111, 1, "Standard Sem Varanda", "Quádruplo", "Extra Grande");
+    quartos[15] = new QuartoComum(112, 1, "Standard Sem Varanda", "Quíntuplo", "Extra Grande");
+    quartos[16] = new QuartoComum(201, 2, "Varanda Lateral", "Casal", "Médio");
+    quartos[17] = new QuartoComum(202, 2, "Varanda Lateral", "Casal", "Médio");
+    quartos[18] = new QuartoComum(203, 2, "Varanda Lateral", "Triplo", "Médio");
+    quartos[19] = new QuartoComum(204, 2, "Varanda Lateral", "Triplo", "Médio");
+    quartos[20] = new QuartoComum(205, 2, "Varanda Lateral", "Triplo", "Médio");
+    quartos[21] = new QuartoComum(206, 2, "Varanda Lateral", "Triplo", "Médio");
+    quartos[22] = new QuartoComum(207, 2, "Varanda Lateral", "Triplo", "Médio");
+    quartos[23] = new QuartoLuxo(208, 2, "Luxo Varanda Frente Mar", "Casal", "Grande", true);
+    quartos[24] = new QuartoComum(209, 2, "Standard Sem Varanda", "Quádruplo", "Extra Grande");
+    quartos[25] = new QuartoComum(210, 2, "Standard Sem Varanda", "Quádruplo", "Extra Grande");
+    quartos[26] = new QuartoComum(211, 2, "Standard Sem Varanda", "Quíntuplo", "Extra Grande");
+    quartos[27] = new QuartoComum(301, 3, "Standard Sem Varanda", "Quíntuplo", "Extra Grande");
+    quartos[28] = new QuartoComum(302, 3, "Standard Sem Varanda", "Triplo", "Pequeno");
+    quartos[29] = new QuartoComum(303, 3, "Standard Sem Varanda", "Casal", "Pequeno");
+    quartos[30] = new QuartoComum(304, 3, "Standard Sem Varanda", "Casal", "Pequeno");
+    quartos[31] = new QuartoLuxo(305, 3, "Luxo Sem Varanda", "Casal", "Grande", true);
+    quartos[32] = new QuartoComum(306, 3, "Standard Sem Varanda", "Casal", "Pequeno");
+    quartos[33] = new QuartoComum(307, 3, "Varanda Frente Mar", "Triplo", "Médio");
+    quartos[34] = new QuartoComum(308, 3, "Varanda Frente Mar", "Triplo", "Médio");
+    quartos[35] = new QuartoComum(309, 3, "Standard Sem Varanda", "Quádruplo", "Extra Grande");
+    quartos[36] = new QuartoComum(310, 3, "Standard Sem Varanda", "Quádruplo", "Extra Grande");
+    quartos[37] = new QuartoComum(311, 3, "Standard Sem Varanda", "Quíntuplo", "Extra Grande");
     }
 
 
@@ -449,162 +447,20 @@ static void manutencaoGer() {
     } // Fechamento if inicial    
 } // Fechamento manutencaoGer();
 
-static void checkListRapido() {
-    
-    System.out.println("==========================================");
-    System.out.println("          INSPEÇÃO DE GOVERNANÇA          ");
-    System.out.println("      - ARRUMAÇÃO DE QUARTO OCUPADO -     ");
-    System.out.println("==========================================");
-    
-    do { 
-        System.out.print("[ ] Arrumação da CAMA OK? (S/N) ..........: ");
-        cama = teclado.next();
-    } while (!cama.equalsIgnoreCase("S") && !cama.equalsIgnoreCase("N")); 
-    
-    do {
-        System.out.print("[ ] Troca de ENXOVAL OK? (S/N) .........: ");
-        enxoval = teclado.next();
-    } while (!enxoval.equalsIgnoreCase("S") && !enxoval.equalsIgnoreCase("N")); 
-    
-    do {
-        System.out.print("[ ] Troca de TOALHAS OK? (S/N) .........: ");
-        toalha = teclado.next();
-    } while (!toalha.equalsIgnoreCase("S") && !toalha.equalsIgnoreCase("N"));
-    
-    do {
-        System.out.print("[ ] Limpeza do BANHEIRO OK? (S/N) ......: ");
-        banheiro = teclado.next();
-    } while (!banheiro.equalsIgnoreCase("S") && !banheiro.equalsIgnoreCase("N"));
-    
-    do {
-        System.out.print("[ ] Retirada do LIXO OK? (S/N) .........: ");
-        lixo = teclado.next();
-    } while (!lixo.equalsIgnoreCase("S") && !lixo.equalsIgnoreCase("N"));
-    
-    do {
-        System.out.print("[ ] Teste do FRIGOBAR OK? (S/N) ........: ");
-        frigobar = teclado.next();
-    } while (!frigobar.equalsIgnoreCase("S") && !frigobar.equalsIgnoreCase("N"));
-    
-    do {
-        System.out.print("[ ] Teste do AR CONDICIONADO OK? (S/N) ..: ");
-        arCondicionado = teclado.next();
-    } while (!arCondicionado.equalsIgnoreCase("S") && !arCondicionado.equalsIgnoreCase("N"));
-    
-    do {
-        System.out.print("[ ] Teste da TELEVISÃO OK? (S/N) ........: ");
-        televisao = teclado.next();
-    } while (!televisao.equalsIgnoreCase("S") && !televisao.equalsIgnoreCase("N"));
-    
-    System.out.println("");
-    System.out.println("==========================================");
-    System.out.println("          CHECK LIST CONCLUÍDO!           ");
-    System.out.println("==========================================");
-    System.out.println(" --- Pressione ENTER para continuar --- ");
-    teclado.nextLine();
-            
-} // Fechamento checkListtRapido(); 
-
-static void checkListGeral() {
-    
-    System.out.println("==========================================");
-    System.out.println("          INSPEÇÃO DE GOVERNANÇA          ");
-    System.out.println("        - REVISÃO GERAL DETALHADA -       ");
-    System.out.println("==========================================");
-    
-    do {
-        System.out.print("[ ] JANELAS/CORTINAS (S/N) .........: ");
-        cortina = teclado.next();
-    } while (!cortina.equalsIgnoreCase("S") && !cortina.equalsIgnoreCase("N"));
-        
-    do {
-        System.out.print("[ ] HIGIENIZAÇÃO COLCHÃO (S/N) .....: ");
-        cama = teclado.next();
-    } while (!cama.equalsIgnoreCase("S") && !cama.equalsIgnoreCase("N")); 
-    
-    do {
-        System.out.print("[ ] TESTE LÂMPADAS/TOMADAS (S/N) ...: ");
-        lampada = teclado.next();        
-    } while (!lampada.equalsIgnoreCase("S") && !lampada.equalsIgnoreCase("N"));
-    
-    do {
-        System.out.print("[ ] TESTE AR CONDICIONADO (S/N) ....: ");
-        arCondicionado = teclado.next();
-    } while (!arCondicionado.equalsIgnoreCase("S") && !arCondicionado.equalsIgnoreCase("N"));
-    
-    do {
-        System.out.print("[ ] TESTE TELEVISÃO (S/N) ..........: ");
-        televisao = teclado.next();
-    } while (!televisao.equalsIgnoreCase("S") && !televisao.equalsIgnoreCase("N"));
-    
-    do {
-        System.out.print("[ ] TESTE FRIGOBAR (S/N) ...........: ");
-        frigobar = teclado.next();
-    } while (!frigobar.equalsIgnoreCase("S") && !frigobar.equalsIgnoreCase("N"));
-    
-    System.out.println("");
-    System.out.println("==========================================");
-    System.out.println("          CHECK LIST CONCLUÍDO!           ");
-    System.out.println("==========================================");
-    System.out.println(" --- Pressione ENTER para continuar --- ");
-    teclado.nextLine();
-    
-} // Fechamento checkListGeral();
-
-static void realizarCheckList() {
-    
-    System.out.println("==========================================");
-    System.out.println("          INSPEÇÃO DE GOVERNANÇA          ");
-    System.out.println("  -  ARRUMAÇÃO DE QUARTO PÓS CHECK-OUT  - ");
-    System.out.println("==========================================");
-    
-    do { 
-        System.out.print("[ ] Frigobar OK? (S/N) .............: ");
-        frigobar = teclado.next();
-    } while (!frigobar.equalsIgnoreCase("S") && !frigobar.equalsIgnoreCase("N"));
-    
-    do {
-        System.out.print("[ ] Ar Condicionado OK? (S/N) ......: ");
-        arCondicionado = teclado.next();
-    } while (!arCondicionado.equalsIgnoreCase("S") && !arCondicionado.equalsIgnoreCase("N"));
-    
-    do {
-        System.out.print("[ ] Televisão OK? (S/N) ..........: ");
-        televisao = teclado.next();
-    } while (!televisao.equalsIgnoreCase("S") && !televisao.equalsIgnoreCase("N"));
-    
-    do {
-        System.out.print("[ ] Cama/Enxoval OK? (S/N) .......: ");
-        cama = teclado.next();
-    } while (!cama.equalsIgnoreCase("S") && !cama.equalsIgnoreCase("N"));
-    
-    do {
-        System.out.print("[ ] Toalhas OK? (S/N) ............: ");
-        toalha = teclado.next();
-    } while (!toalha.equalsIgnoreCase("S") && !toalha.equalsIgnoreCase("N"));
-    
-    System.out.println("");
-    System.out.println("==========================================");
-    System.out.println("          CHECK LIST CONCLUÍDO!           ");
-    System.out.println("==========================================");
-    System.out.println(" --- Pressione ENTER para continuar --- ");
-    teclado.nextLine();
-    
-} // Fechamento realizarCheckList();
-
 static void realizarInspecao() {
-    
+     
     int statusAnterior = quartos[posicao].getStatusAnterior();
     
     System.out.println("Deseja iniciar a INSPEÇÃO do quarto " + numQuarto + " ? (S/N) ");
     resposta = teclado.next();
     
         if (resposta.equalsIgnoreCase("S")) {
+            
+            boolean possuiDefeito = false;
+            
             if (quartos[posicao].getStatus() == 9) {
-                checkListGeral();
-                if (frigobar.equalsIgnoreCase("N") ||
-                    arCondicionado.equalsIgnoreCase("N") ||
-                    televisao.equalsIgnoreCase("N"))  {
+                possuiDefeito = quartos[posicao].executarCheckListRevisaoGeral(teclado);
+                if (possuiDefeito) {
                     quartos[posicao].bloquearManutencao();
                     System.out.println("=========== A T E N Ç Ã O ================");
                     System.out.println("DEFEITO TÉCNICO DETECTADO APÓS MANUTENÇÃO ");
@@ -613,15 +469,15 @@ static void realizarInspecao() {
                     System.out.println(" --- Pressione ENTER para continuar --- ");
                     teclado.nextLine();
                     teclado.nextLine();
-                }    
-             
-            } else 
+                }
+            } else {
+                
                 switch (statusAnterior) {
+                    
                     case 2: 
-                        realizarCheckList();
-                        if (frigobar.equalsIgnoreCase("N") ||
-                            arCondicionado.equalsIgnoreCase("N") ||
-                            televisao.equalsIgnoreCase("N")) {
+                        possuiDefeito = quartos[posicao].executarCheckListPosCheckout(teclado);
+                        
+                        if (possuiDefeito) {
                             quartos[posicao].bloquearManutencao();
                             System.out.println("=========== A T E N Ç Ã O ================");
                             System.out.println("DEFEITO TÉCNICO DETECTADO DURANTE CHECK-OUT");
@@ -632,11 +488,11 @@ static void realizarInspecao() {
                             teclado.nextLine();
                         }
                         break;
+                        
                     case 5: 
-                        checkListRapido();
-                        if (frigobar.equalsIgnoreCase("N") || 
-                            arCondicionado.equalsIgnoreCase("N") ||
-                            televisao.equalsIgnoreCase("N")) {
+                        possuiDefeito = quartos[posicao].executarCheckListArrumacao(teclado);
+                        
+                        if (possuiDefeito) {
                             quartos[posicao].solicitarManutencaoUrgente();
                             System.out.println("=========== A T E N Ç Ã O ================");
                             System.out.println("DEFEITO TÉCNICO DETECTADO DURANTE ARRUMAÇÃO");
@@ -648,10 +504,9 @@ static void realizarInspecao() {
                         }
                         break;
                     case 6: 
-                        checkListGeral();
-                        if (frigobar.equalsIgnoreCase("N") || 
-                            arCondicionado.equalsIgnoreCase("N") ||
-                            televisao.equalsIgnoreCase("N")) {
+                        possuiDefeito = quartos[posicao].executarCheckListRevisaoGeral(teclado);
+                        
+                        if (possuiDefeito) {
                             quartos[posicao].bloquearManutencao();
                             System.out.println("=========== A T E N Ç Ã O ================");
                             System.out.println("DEFEITO TÉCNICO DETECTADO DURANTE INSPEÇÃO");
@@ -661,11 +516,14 @@ static void realizarInspecao() {
                             teclado.nextLine();
                             teclado.nextLine();
                         }
-                        break;            
-              }
+                        break;
+                }
+            }    
+
          if (quartos[posicao].getStatus() != 7 && quartos[posicao].getStatus() != 8) {
              System.out.println("Finalizar limpeza e liberar o quarto " + numQuarto + " ? (S/N) ");
              resposta = teclado.next();
+             
                 if (resposta.equalsIgnoreCase("S")) {
                     if (statusAnterior == 5) {
                         quartos[posicao].realizarCheckin();
