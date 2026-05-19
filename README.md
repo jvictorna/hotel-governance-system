@@ -92,19 +92,23 @@ mantendo todas as funcionalidades da versão em Portugol.
 ---
 
 ## 🎯 Atualizações da Versão 3.0 Java POO — Orientação a Objetos
-Migração em andamento para Programação Orientada a Objetos, introduzindo
-classes encapsuladas que tornam o sistema mais organizado e extensível.
+Esta versão consolida a migração do sistema para Programação Orientada a Objetos, 
+reorganizando a lógica principal em classes com responsabilidades mais claras.
 
-- **Classe Quarto:** Encapsulamento completo com atributos privados,
-  getters, setters e métodos operacionais dedicados — cada quarto agora
-  é um objeto com comportamento próprio.
-- **Memória de Estado:** O controle do `statusAnterior` migrou para
-  dentro da própria classe `Quarto`, através do método `setStatusComMemoria()`.
-- **Array de Objetos:** Substituição dos três arrays paralelos por um
-  único array de objetos `Quarto[]`, tornando o código mais limpo e legível.
-- **Descrição de Status:** Método `getDescricaoStatus()` encapsulado
-  dentro da classe `Quarto` — cada quarto sabe descrever seu próprio estado.
-
+- **Classe abstrata Quarto:** criação de uma classe base para representar 
+  os dados e comportamentos comuns dos quartos.
+- **Encapsulamento:** atributos privados, getters, 
+  setters e métodos operacionais para controle de status.
+- **Herança:** criação das classes QuartoComum e QuartoLuxo, especializando 
+  o comportamento dos quartos.
+- **Polimorfismo:** uso do array Quarto[] para armazenar objetos de tipos diferentes 
+  e executar comportamentos específicos sem verificar diretamente o tipo do quarto.
+- **Checklists especializados:** migração dos checklists para as classes dos quartos, 
+  com versões para pós-checkout, arrumação de quarto ocupado e revisão geral.
+- **QuartoLuxo:** implementação de checklist diferenciado com itens extras, 
+  como banheira e hidromassagem.
+- **Refatoração da inspeção:** o método realizarInspecao() passou a coordenar o 
+  fluxo e delegar a execução dos checklists aos objetos.
 ---
 
 ## 🛠️ Conceitos de ADS Aplicados
@@ -127,8 +131,8 @@ classes encapsuladas que tornam o sistema mais organizado e extensível.
 - ~~Correção e fechamento do protótipo de 5 quartos (v1.4)~~ ✅
 - ~~Expansão para os 38 quartos reais distribuídos por andar (v2.0)~~ ✅
 - ~~Migração do sistema para Java~~ ✅
-- Refatoração para Java com Orientação a Objetos (POO) 🔄
-- Integração com banco de dados MySQL para persistência dos dados
+- ~~Refatoração para Java com Orientação a Objetos (POO)~~ ✅ 
+- Integração com banco de dados MySQL para persistência dos dados 🔄
 - Desenvolvimento de interface mobile com notificações em tempo real
 - Geração de relatório final de ocupação e produtividade
 
@@ -144,4 +148,4 @@ classes encapsuladas que tornam o sistema mais organizado e extensível.
 | v2.0 | Sistema real — 38 quartos da pousada, organizados por andar, com busca por número real |
 | v2.0 Java | Migração completa para Java — métodos, travas, checklists e loop principal |
 | v2.1 Java | Correções pós-teste — tratamento de exceções para entradas inválidas e reorganização dos checklists |
-| v3.0 Java POO | Migração em andamento — classe Quarto encapsulada com métodos operacionais |
+| v3.0 Java POO | Migração concluída — abstração, herança, polimorfismo e checklists especializados por tipo de quarto |
