@@ -111,11 +111,26 @@ reorganizando a lógica principal em classes com responsabilidades mais claras.
   fluxo e delegar a execução dos checklists aos objetos.
 ---
 
+## 🗄️ Atualizações da Versão 4.0 — Persistência de Dados (MySQL)
+
+Esta versão marca o início da persistência de dados do sistema, substituindo estruturas 
+temporárias em memória por uma base de dados relacional preparada para integração com Java via JDBC.
+
+- **Criação do Banco de Dados HGS:** estrutura inicial desenvolvida em MySQL utilizando UTF8MB4.
+- **Modelagem Relacional:** criação das tabelas `status`, `tipo_quarto`, `modelo_quarto` e `quartos`.
+- **Relacionamentos:** implementação de chaves estrangeiras para garantir integridade entre os dados.
+- **Cadastro Inicial:** inserção dos 38 quartos reais da pousada, além dos status, tipos e modelos de quartos.
+- **Status Persistentes:** os nove estados operacionais do sistema passaram a ser armazenados em banco de dados.
+- **Consulta de Validação:** utilização de INNER JOIN para validar os relacionamentos e exibir informações completas dos quartos.
+- **Preparação para JDBC:** estrutura pronta para futura integração com Java e persistência das operações do sistema.
+---
+
 ## 🛠️ Conceitos de ADS Aplicados
 - **Estruturas de Dados:** Uso de Vetores (Arrays) para gerenciar os estados das unidades.
 - **Lógica de Programação:** Estruturas de decisão complexas e laços de repetição.
 - **Engenharia de Requisitos:** Modelagem de um fluxo real de hotelaria para um ambiente de código.
 - **Orientação a Objetos:** Encapsulamento, classes, objetos e métodos aplicados na refatoração do sistema.
+- **Banco de Dados Relacional:** modelagem de entidades, chaves primárias, chaves estrangeiras e consultas SQL.
 
 ---
 
@@ -124,6 +139,7 @@ reorganizando a lógica principal em classes com responsabilidades mais claras.
 - **Java + NetBeans IDE 29:** Ambiente de desenvolvimento para a migração do sistema.
 - **Git & GitHub:** Versionamento e hospedagem do portfólio.
 - **Assistente de IA:** Apoio na estruturação da documentação e revisão de lógica.
+- **MySQL Workbench + MariaDB/MySQL:** Modelagem e gerenciamento do banco de dados relacional.
 
 ---
 
@@ -132,7 +148,8 @@ reorganizando a lógica principal em classes com responsabilidades mais claras.
 - ~~Expansão para os 38 quartos reais distribuídos por andar (v2.0)~~ ✅
 - ~~Migração do sistema para Java~~ ✅
 - ~~Refatoração para Java com Orientação a Objetos (POO)~~ ✅ 
-- Integração com banco de dados MySQL para persistência dos dados 🔄
+- ~~Modelagem inicial do banco de dados MySQL~~ ✅
+- Integração Java + JDBC + MySQL 🔄
 - Desenvolvimento de interface mobile com notificações em tempo real
 - Geração de relatório final de ocupação e produtividade
 
@@ -149,3 +166,4 @@ reorganizando a lógica principal em classes com responsabilidades mais claras.
 | v2.0 Java | Migração completa para Java — métodos, travas, checklists e loop principal |
 | v2.1 Java | Correções pós-teste — tratamento de exceções para entradas inválidas e reorganização dos checklists |
 | v3.0 Java POO | Migração concluída — abstração, herança, polimorfismo e checklists especializados por tipo de quarto |
+| v4.0 MySQL | Modelagem relacional inicial, cadastro dos 38 quartos reais, status e relacionamentos com chaves estrangeiras |
