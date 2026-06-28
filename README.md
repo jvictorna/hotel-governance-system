@@ -167,3 +167,5 @@ temporárias em memória por uma base de dados relacional preparada para integra
 | v2.1 Java | Correções pós-teste — tratamento de exceções para entradas inválidas e reorganização dos checklists |
 | v3.0 Java POO | Migração concluída — abstração, herança, polimorfismo e checklists especializados por tipo de quarto |
 | v4.0 MySQL | Modelagem relacional inicial, cadastro dos 38 quartos reais, status e relacionamentos com chaves estrangeiras |
+| v4.1 MySQL — v2 | Alterações para integração JDBC — tipo da coluna numero, id_origem_limpeza e id_origem_manutencao |
+| v4.2 MySQL — v3 | Histórico de operações e relatórios — tabela historico_operacoes e campo data_ultima_saida |
