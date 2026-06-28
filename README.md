@@ -125,12 +125,51 @@ temporárias em memória por uma base de dados relacional preparada para integra
 - **Preparação para JDBC:** estrutura pronta para futura integração com Java e persistência das operações do sistema.
 ---
 
+## 🔌 Atualizações da Versão 5.0 — Integração JDBC Completa
+
+Esta versão representa a conclusão da integração Java + JDBC + MySQL, 
+evoluindo o sistema de protótipo console para uma aplicação com 
+persistência real de dados, arquitetura em camadas e relatórios gerenciais.
+
+- **Integração JDBC:** conexão com banco MariaDB via JDBC, substituindo 
+  estruturas em memória por consultas e atualizações reais no banco.
+- **Arquitetura em camadas:** separação de responsabilidades em 
+  Main (UI) → Controller (regras de negócio) → DAO (banco de dados).
+- **Manutenção inteligente:** controle automático de origem da manutenção 
+  via `id_origem_manutencao` — o sistema decide o destino do quarto após 
+  inspeção sem intervenção manual do técnico.
+- **Histórico de operações:** registro automático de todas as operações 
+  realizadas com data/hora, quarto, status anterior e status novo.
+- **Menu de relatórios:** submenu dedicado com ocupação por andar, 
+  quartos em manutenção, histórico por quarto e relatório PDF via iTextPDF.
+- **Alerta de tempo fechado:** exibição de `⚠ REVISÃO NECESSÁRIA` para 
+  quartos disponíveis sem movimentação há mais de 5 dias.
+- **Documentação inline:** sumário comentado em todas as classes para 
+  facilitar navegação e manutenção do código.
+
+---
+
+## 🔮 Melhorias Planejadas
+
+- **Filtro por período no histórico:** o relatório de histórico por quarto 
+  atualmente exibe todos os registros sem limite. Em alta temporada isso 
+  pode gerar relatórios muito extensos. Melhoria planejada: permitir que 
+  o usuário defina um intervalo de datas (de X até Y) ou selecione um 
+  período padrão (últimos 7, 15 ou 30 dias).
+
+- **Alerta de manutenção urgente com hóspede:** quartos que retornam de 
+  manutenção com hóspede presente devem gerar notificação de prioridade 
+  máxima — a ser implementado na interface mobile.
+
+---
+
 ## 🛠️ Conceitos de ADS Aplicados
 - **Estruturas de Dados:** Uso de Vetores (Arrays) para gerenciar os estados das unidades.
 - **Lógica de Programação:** Estruturas de decisão complexas e laços de repetição.
 - **Engenharia de Requisitos:** Modelagem de um fluxo real de hotelaria para um ambiente de código.
 - **Orientação a Objetos:** Encapsulamento, classes, objetos e métodos aplicados na refatoração do sistema.
 - **Banco de Dados Relacional:** modelagem de entidades, chaves primárias, chaves estrangeiras e consultas SQL.
+- **JDBC:** integração entre aplicação Java e banco de dados relacional via drivers de conexão.
 
 ---
 
@@ -140,6 +179,8 @@ temporárias em memória por uma base de dados relacional preparada para integra
 - **Git & GitHub:** Versionamento e hospedagem do portfólio.
 - **Assistente de IA:** Apoio na estruturação da documentação e revisão de lógica.
 - **MySQL Workbench + MariaDB/MySQL:** Modelagem e gerenciamento do banco de dados relacional.
+- **JDBC + MariaDB Driver:** integração Java com banco de dados relacional.
+- **iTextPDF:** geração de relatórios gerenciais em PDF.
 
 ---
 
@@ -149,9 +190,9 @@ temporárias em memória por uma base de dados relacional preparada para integra
 - ~~Migração do sistema para Java~~ ✅
 - ~~Refatoração para Java com Orientação a Objetos (POO)~~ ✅ 
 - ~~Modelagem inicial do banco de dados MySQL~~ ✅
-- Integração Java + JDBC + MySQL 🔄
-- Desenvolvimento de interface mobile com notificações em tempo real
-- Geração de relatório final de ocupação e produtividade
+- ~~Integração Java + JDBC + MySQL~~ ✅
+- ~~Geração de relatório de ocupação e produtividade~~ ✅
+- Desenvolvimento de interface mobile com notificações em tempo real 🔄
 
 ---
 
@@ -167,5 +208,6 @@ temporárias em memória por uma base de dados relacional preparada para integra
 | v2.1 Java | Correções pós-teste — tratamento de exceções para entradas inválidas e reorganização dos checklists |
 | v3.0 Java POO | Migração concluída — abstração, herança, polimorfismo e checklists especializados por tipo de quarto |
 | v4.0 MySQL | Modelagem relacional inicial, cadastro dos 38 quartos reais, status e relacionamentos com chaves estrangeiras |
-| v4.1 MySQL — v2 | Alterações para integração JDBC — tipo da coluna numero, id_origem_limpeza e id_origem_manutencao |
-| v4.2 MySQL — v3 | Histórico de operações e relatórios — tabela historico_operacoes e campo data_ultima_saida |
+| v4.1 MySQL | Alterações para integração JDBC — tipo da coluna numero, id_origem_limpeza e id_origem_manutencao |
+| v4.2 MySQL | Histórico de operações e relatórios — tabela historico_operacoes e campo data_ultima_saida |
+| v5.0 JDBC | Sistema JDBC completo — arquitetura Main → Controller → DAO, histórico de operações, relatórios e alerta de tempo fechado |
