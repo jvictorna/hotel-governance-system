@@ -33,12 +33,14 @@ import model.QuartoBean;
  *     4.4 iniciarLimpezaArrumacao()
  *     4.5 iniciarLimpezaRevisao()
  *     4.6 liberarQuarto()
+ *     4.7 concluirArrumacao()
  *
  *  5. FLUXO DE MANUTENÇÃO
  *     5.1 manutencaoTec()
  *     5.2 solicitarManutencaoUrgente()
  *     5.3 bloquearManutencao()
  *     5.4 concluirManutencao()
+ *     5.5 retornarPosManutencao();
  *
  *  6. HISTÓRICO
  *     6.1 registrarHistorico()
@@ -46,11 +48,15 @@ import model.QuartoBean;
  *  7. RELATÓRIOS
  *     7.1 relatorioOcupacaoPorAndar()
  *     7.2 relatorioQuartosEmManutencao()
- *     7.3 relatorioHistoricoQuarto()
+ *     7.3 relatorioHistoricoQuarto() — sem filtro
+ *     7.4 relatorioHistoricoQuarto() — filtro por dias
+ *     7.5 relatorioHistoricoQuarto() — filtro por intervalo
+ *     7.6 exibirRegistrosHistorico() — auxiliar
+ * 
  * ═══════════════════════════════════════════════════════
  *
  * @author João Adorno
- * @version 5.0
+ * @version 5.1
  */
 
 public class DAO {
@@ -405,6 +411,35 @@ public class DAO {
 
         registrarHistorico(idQuarto, numeroQuarto, 0, 1, "LIBERACAO");
     }
+    
+    // ═══════════════════════════════════════════════════════ 
+    // concluirArrumacao()
+    // ═══════════════════════════════════════════════════════ 
+    
+    public void concluirArrumacao(int idQuarto, int numeroQuarto) {
+
+        String sql = """
+        UPDATE quartos
+        SET 
+            id_status_anterior = id_status,
+            id_status = 2,
+            id_origem_limpeza = NULL,
+            id_origem_manutencao = NULL
+        WHERE id_quarto = ?
+    """;
+
+        try {
+            Connection con = conectar();
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, idQuarto);
+            pst.executeUpdate();
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        registrarHistorico(idQuarto, numeroQuarto, 5, 2, "CONCLUSAO_ARRUMACAO");
+    }
 
     // ═══════════════════════════════════════════════════════ 
     // FLUXO DE MANUTENÇÃO
@@ -413,6 +448,7 @@ public class DAO {
     // - solicitarManutencaoUrgente()
     // - bloquearManutencao()
     // - concluirManutencao()
+    // - retornarPosManutencao()
     // ═══════════════════════════════════════════════════════ 
     // manutencaoTec()
     // ═══════════════════════════════════════════════════════ 
@@ -524,6 +560,36 @@ public class DAO {
         }
 
         registrarHistorico(idQuarto, numeroQuarto, 0, 9, "CONCLUSAO_MANUTENCAO");
+    }
+    
+    // ═══════════════════════════════════════════════════════ 
+    // retornarPosManutencao()
+    // ═══════════════════════════════════════════════════════ 
+    
+    public void retornarPosManutencao(int idQuarto, int numeroQuarto, int statusOrigem) {
+
+        String sql = """
+        UPDATE quartos
+        SET 
+            id_status_anterior = id_status,
+            id_status = ?,
+            id_origem_limpeza = NULL,
+            id_origem_manutencao = NULL
+        WHERE id_quarto = ?
+    """;
+
+        try {
+            Connection con = conectar();
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, statusOrigem);
+            pst.setInt(2, idQuarto);
+            pst.executeUpdate();
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        registrarHistorico(idQuarto, numeroQuarto, 9, statusOrigem, "RETORNO_POS_MANUTENCAO");
     }
 
     // ═══════════════════════════════════════════════════════ 
@@ -692,31 +758,124 @@ public class DAO {
             System.out.println("   HISTÓRICO DO QUARTO " + numeroQuarto);
             System.out.println("=========================================");
 
-            boolean encontrou = false;
-
-            while (rs.next()) {
-                encontrou = true;
-                String operacao = rs.getString("tipo_operacao");
-                String statusAnterior = rs.getString("status_anterior");
-                String statusNovo = rs.getString("status_novo");
-                String dataHora = rs.getString("data_hora");
-
-                System.out.println("Data/Hora : " + dataHora);
-                System.out.println("Operação  : " + operacao);
-                System.out.println("De        : " + (statusAnterior != null ? statusAnterior : "—"));
-                System.out.println("Para      : " + statusNovo);
-                System.out.println("-----------------------------------------");
-            }
-
-            if (!encontrou) {
-                System.out.println("Nenhum histórico encontrado para o quarto " + numeroQuarto);
-            }
-
+            exibirRegistrosHistorico(rs);
             con.close();
 
         } catch (Exception e) {
             System.out.println(e);
         }
     }
+    
+    // ═══════════════════════════════════════════════════════ 
+    // relatorioHistoricoQuarto() — filtro por dias
+    // ═══════════════════════════════════════════════════════ 
+
+    public void relatorioHistoricoQuarto(int numeroQuarto, int dias) {
+
+        String sql = """
+        SELECT 
+            h.tipo_operacao,
+            sa.descricao AS status_anterior,
+            sn.descricao AS status_novo,
+            h.data_hora
+        FROM historico_operacoes h
+            LEFT JOIN status sa ON h.id_status_anterior = sa.id_status
+            LEFT JOIN status sn ON h.id_status_novo = sn.id_status
+        WHERE h.numero_quarto = ?
+        AND h.data_hora >= DATE_SUB(NOW(), INTERVAL ? DAY)
+        ORDER BY h.data_hora DESC
+    """;
+
+        try {
+            Connection con = conectar();
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, numeroQuarto);
+            pst.setInt(2, dias);
+            ResultSet rs = pst.executeQuery();
+
+            System.out.println("=========================================");
+            System.out.println("   HISTÓRICO DO QUARTO " + numeroQuarto
+            + " — ÚLTIMOS " + dias + " DIAS");
+            System.out.println("=========================================");
+
+            exibirRegistrosHistorico(rs);
+            con.close();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+// ═══════════════════════════════════════════════════════ 
+// relatorioHistoricoQuarto() — filtro por intervalo
+// ═══════════════════════════════════════════════════════ 
+
+    public void relatorioHistoricoQuarto(int numeroQuarto, String dataInicio, String dataFim) {
+
+        String sql = """
+        SELECT 
+            h.tipo_operacao,
+            sa.descricao AS status_anterior,
+            sn.descricao AS status_novo,
+            h.data_hora
+        FROM historico_operacoes h
+            LEFT JOIN status sa ON h.id_status_anterior = sa.id_status
+            LEFT JOIN status sn ON h.id_status_novo = sn.id_status
+        WHERE h.numero_quarto = ?
+        AND h.data_hora BETWEEN ? AND ?
+        ORDER BY h.data_hora DESC
+    """;
+
+        try {
+            Connection con = conectar();
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, numeroQuarto);
+            pst.setString(2, dataInicio + " 00:00:00");
+            pst.setString(3, dataFim + " 23:59:59");
+            ResultSet rs = pst.executeQuery();
+
+            System.out.println("=========================================");
+            System.out.println("   HISTÓRICO DO QUARTO " + numeroQuarto);
+            System.out.println("   PERÍODO: " + dataInicio + " a " + dataFim);
+            System.out.println("=========================================");
+
+            exibirRegistrosHistorico(rs);
+            con.close();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+// ═══════════════════════════════════════════════════════ 
+// exibirRegistrosHistorico() — auxiliar
+// ═══════════════════════════════════════════════════════ 
+
+private void exibirRegistrosHistorico(ResultSet rs) {
+    try {
+        boolean encontrou = false;
+
+        while (rs.next()) {
+            encontrou = true;
+            String operacao = rs.getString("tipo_operacao");
+            String statusAnterior = rs.getString("status_anterior");
+            String statusNovo = rs.getString("status_novo");
+            String dataHora = rs.getString("data_hora");
+
+            System.out.println("Data/Hora : " + dataHora);
+            System.out.println("Operação  : " + operacao);
+            System.out.println("De        : " + (statusAnterior != null ? statusAnterior : "—"));
+            System.out.println("Para      : " + statusNovo);
+            System.out.println("-----------------------------------------");
+        }
+
+        if (!encontrou) {
+            System.out.println("Nenhum histórico encontrado para o período selecionado.");
+        }
+
+    } catch (Exception e) {
+        System.out.println(e);
+    }
+}
 
 } // Fechamento da classe DAO

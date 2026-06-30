@@ -43,7 +43,7 @@ import service.CheckList;
  * ═══════════════════════════════════════════════════════
  *
  * @author João Adorno
- * @version 5.0
+ * @version 5.1
  */
 
 public class HGSController {
@@ -395,10 +395,12 @@ public class HGSController {
                     switch (origemManutencao) {
                         case 2: // Ocupado
                         case 5: // Arrumação Pendente
-                            dao.realizarCheckIn(quartos.get(posicao).getId(), numQuarto);
+                            dao.retornarPosManutencao(quartos.get(posicao).getId(), 
+                                           numQuarto, origemManutencao);
                             atualizarLista();
                             System.out.println("=========== A T E N Ç Ã O ================");
-                            System.out.println("INSPEÇÃO CONCLUÍDA! Quarto retorna para OCUPADO");
+                            System.out.println("INSPEÇÃO CONCLUÍDA! Quarto retorna para "
+                                            + (origemManutencao == 2 ? "OCUPADO" : "ARRUMAÇÃO PENDENTE"));
                             System.out.println("==========================================");
                             break;
                         default: // Disponível (1), Sujo (3), Revisão (6)
@@ -493,10 +495,10 @@ public class HGSController {
 
                     if (resposta.equalsIgnoreCase("S")) {
                         if (origemLimpeza == 5) {
-                            dao.realizarCheckIn(quartos.get(posicao).getId(), numQuarto);
+                            dao.concluirArrumacao(quartos.get(posicao).getId(), numQuarto);
                             atualizarLista();
                             System.out.println("=========== A T E N Ç Ã O ================");
-                            System.out.println("Check-out NÃO DETECTADO! Quarto segue OCUPADO");
+                            System.out.println("ARRUMAÇÃO CONCLUÍDA! Quarto segue OCUPADO");
                             System.out.println("===========================================");
                             System.out.println(" --- Pressione ENTER para continuar --- ");
                             teclado.nextLine();
@@ -614,35 +616,90 @@ public class HGSController {
             teclado.nextLine();
 
             switch (opcaoRelatorio) {
+                
                 case 1:
                     dao.relatorioOcupacaoPorAndar();
                     System.out.println(" --- Pressione ENTER para continuar --- ");
                     teclado.nextLine();
                     break;
+                    
                 case 2:
                     dao.relatorioQuartosEmManutencao();
                     System.out.println(" --- Pressione ENTER para continuar --- ");
                     teclado.nextLine();
                     break;
+                    
                 case 3:
-                    System.out.print("Digite o número do quarto: ");
+                    System.out.print("Digite o número do quarto (ou 0 para cancelar): ");
                     int numQuartoHist = teclado.nextInt();
                     teclado.nextLine();
-                    dao.relatorioHistoricoQuarto(numQuartoHist);
+                    
+                    if (numQuartoHist == 0) {
+                       System.out.println("=========== A T E N Ç Ã O ================");
+                       System.out.println("OPERAÇÃO CANCELADA — retornando ao menu de relatórios");
+                       System.out.println("==========================================");
+                       System.out.println(" --- Pressione ENTER para continuar --- ");
+                       teclado.nextLine();
+                       break;
+                    }
+                    
+                    System.out.println("=========================================");
+                    System.out.println("         HISTÓRICO DETALHADO             ");
+                    System.out.println("=========================================");
+                    System.out.println("1. Últimos 7 dias                        ");
+                    System.out.println("2. Últimos 15 dias                       ");
+                    System.out.println("3. Últimos 30 dias                       ");
+                    System.out.println("4. Intervalo personalizado               ");
+                    System.out.println("0. Sem filtro — exibir tudo              ");
+                    System.out.println("=========================================");
+                    System.out.print("Selecione o período: ");
+                    int opcaoPeriodo = teclado.nextInt();
+                    teclado.nextLine();
+
+                    switch (opcaoPeriodo) {
+                        
+                        case 1:
+                            dao.relatorioHistoricoQuarto(numQuartoHist, 7);
+                            break;
+                        
+                        case 2:
+                            dao.relatorioHistoricoQuarto(numQuartoHist, 15);
+                            break;
+                        
+                        case 3:
+                            dao.relatorioHistoricoQuarto(numQuartoHist, 30);
+                            break;
+                        
+                        case 4:
+                            System.out.print("Data inicial (AAAA-MM-DD): ");
+                            String dataInicio = teclado.nextLine();
+                            System.out.print("Data final   (AAAA-MM-DD): ");
+                            String dataFim = teclado.nextLine();
+                            dao.relatorioHistoricoQuarto(numQuartoHist, dataInicio, dataFim);
+                            break;
+                        
+                        default: 
+                            dao.relatorioHistoricoQuarto(numQuartoHist);
+                            break;
+                }
+
                     System.out.println(" --- Pressione ENTER para continuar --- ");
                     teclado.nextLine();
                     break;
+                    
                 case 4:
                     new relatorio.RelatorioPDF()
                             .gerarRelatorioGerencial(dao.listarQuartos());
                     System.out.println(" --- Pressione ENTER para continuar --- ");
                     teclado.nextLine();
                     break;
+                    
                 case 0:
                     System.out.println("=========================================");
                     System.out.println("         RETORNANDO AO MENU PRINCIPAL    ");
                     System.out.println("=========================================");
                     break;
+                    
                 default:
                     System.out.println("=========== A T E N Ç Ã O ================");
                     System.out.println("ERRO: Opção inválida!");

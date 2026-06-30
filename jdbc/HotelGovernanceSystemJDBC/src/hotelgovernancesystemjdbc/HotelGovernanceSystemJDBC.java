@@ -31,7 +31,7 @@ import controller.HGSController;
  * ═══════════════════════════════════════════════════════
  *
  * @author João Adorno
- * @version 5.0
+ * @version 5.1
  */
 
 public class HotelGovernanceSystemJDBC {
@@ -148,37 +148,48 @@ public class HotelGovernanceSystemJDBC {
     // ═══════════════════════════════════════════════════════
 
     static void solicitarDados() {
-
-        if (opcao >= 1 && opcao <= 8) {
-            System.out.print("Digite o número do quarto: ");
-
-            try {
-                numQuarto = teclado.nextInt();
-            } catch (Exception e) {
-                System.out.println("=========== A T E N Ç Ã O ================");
-                System.out.println("ERRO: Digite apenas números!");
-                System.out.println("==========================================");
-                System.out.println(" --- Pressione ENTER para continuar --- ");
-                teclado.next();
-                teclado.nextLine();
-                teclado.nextLine();
-                opcao = -1;
-                return;
-            }
-
-            posicao = controller.getPosicao(numQuarto); // ← substitui o for
-
-            if (posicao == -1) {
-                System.out.println("=========== A T E N Ç Ã O ================");
-                System.out.println("QUARTO INVÁLIDO — verifique o número e tente novamente");
-                System.out.println("==========================================");
-                System.out.println(" --- Pressione ENTER para continuar --- ");
-                teclado.nextLine();
-                teclado.nextLine();
-                opcao = -1;
-            }
+        
+    if (opcao >= 1 && opcao <= 8) {
+        
+        System.out.print("Digite o número do quarto (ou 0 para cancelar): ");
+        
+        try {
+            numQuarto = teclado.nextInt();
+        } catch (Exception e) {
+            System.out.println("=========== A T E N Ç Ã O ================");
+            System.out.println("ERRO: Digite apenas números!");
+            System.out.println("==========================================");
+            System.out.println(" --- Pressione ENTER para continuar --- ");
+            teclado.next();
+            teclado.nextLine();
+            teclado.nextLine();
+            opcao = -1;
+            return;
         }
-    } // Fechamento solicitar dados
+
+        if (numQuarto == 0) {
+            System.out.println("=========== A T E N Ç Ã O ================");
+            System.out.println("OPERAÇÃO CANCELADA — retornando ao menu principal");
+            System.out.println("==========================================");
+            System.out.println(" --- Pressione ENTER para continuar --- ");
+            teclado.nextLine();
+            teclado.nextLine();
+            opcao = -1;
+            return;
+        }
+
+        posicao = controller.getPosicao(numQuarto); 
+        if (posicao == -1) {
+            System.out.println("=========== A T E N Ç Ã O ================");
+            System.out.println("QUARTO INVÁLIDO — verifique o número e tente novamente");
+            System.out.println("==========================================");
+            System.out.println(" --- Pressione ENTER para continuar --- ");
+            teclado.nextLine();
+            teclado.nextLine();
+            opcao = -1;
+        }
+    }
+} // Fechamento solicitar dados
     
     // ═══════════════════════════════════════════════════════
     // EXECUÇÃO PRINCIPAL 
