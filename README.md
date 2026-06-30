@@ -149,13 +149,20 @@ persistência real de dados, arquitetura em camadas e relatórios gerenciais.
 
 ---
 
-## 🔮 Melhorias Planejadas
+## 🔧 Atualizações da Versão 5.1 — Correções e Melhorias Operacionais
 
-- **Filtro por período no histórico:** o relatório de histórico por quarto 
-  atualmente exibe todos os registros sem limite. Em alta temporada isso 
-  pode gerar relatórios muito extensos. Melhoria planejada: permitir que 
-  o usuário defina um intervalo de datas (de X até Y) ou selecione um 
-  período padrão (últimos 7, 15 ou 30 dias).
+- **Cancelamento de operação:** digitando `0` no campo de número do quarto
+  o sistema cancela a operação e retorna ao menu principal sem executar nada.
+  Mesmo comportamento aplicado ao relatório de histórico por quarto.
+- **Correção semântica do histórico:** criação dos métodos `concluirArrumacao()`
+  e `retornarPosManutencao()` no DAO — operações que antes registravam
+  `CHECKIN` indevidamente passam a registrar `CONCLUSAO_ARRUMACAO` e
+  `RETORNO_POS_MANUTENCAO`, tornando o histórico semanticamente correto.
+- **Filtro por período no histórico:** o relatório de histórico por quarto
+  agora oferece filtro por últimos 7, 15 ou 30 dias, intervalo personalizado
+  (de X até Y) ou exibição completa sem filtro.
+
+## 🔮 Melhorias Planejadas
 
 - **Alerta de manutenção urgente com hóspede:** quartos que retornam de 
   manutenção com hóspede presente devem gerar notificação de prioridade 
@@ -211,3 +218,4 @@ persistência real de dados, arquitetura em camadas e relatórios gerenciais.
 | v4.1 MySQL | Alterações para integração JDBC — tipo da coluna numero, id_origem_limpeza e id_origem_manutencao |
 | v4.2 MySQL | Histórico de operações e relatórios — tabela historico_operacoes e campo data_ultima_saida |
 | v5.0 JDBC | Sistema JDBC completo — arquitetura Main → Controller → DAO, histórico de operações, relatórios e alerta de tempo fechado |
+| v5.1 JDBC | Cancelamento via 0, correção semântica do histórico e filtro por período |
