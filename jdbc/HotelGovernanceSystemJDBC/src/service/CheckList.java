@@ -37,7 +37,7 @@ import java.util.Scanner;
  * ═══════════════════════════════════════════════════════
  *
  * @author João Adorno
- * @version 5.1
+ * @version 5.2
  */
 
 public class CheckList {

@@ -56,7 +56,7 @@ import model.QuartoBean;
  * ═══════════════════════════════════════════════════════
  *
  * @author João Adorno
- * @version 5.1
+ * @version 5.2
  */
 
 public class DAO {
@@ -488,7 +488,7 @@ public class DAO {
         String sql = """
         UPDATE quartos
         SET 
-            id_origem_manutencao = id_status,
+            id_origem_manutencao = id_origem_limpeza,
             id_status_anterior = id_status,
             id_status = 8
         WHERE id_quarto = ?
@@ -806,9 +806,9 @@ public class DAO {
         }
     }
 
-// ═══════════════════════════════════════════════════════ 
-// relatorioHistoricoQuarto() — filtro por intervalo
-// ═══════════════════════════════════════════════════════ 
+    // ═══════════════════════════════════════════════════════ 
+    // relatorioHistoricoQuarto() — filtro por intervalo
+    // ═══════════════════════════════════════════════════════ 
 
     public void relatorioHistoricoQuarto(int numeroQuarto, String dataInicio, String dataFim) {
 
@@ -847,12 +847,13 @@ public class DAO {
         }
     }
 
-// ═══════════════════════════════════════════════════════ 
-// exibirRegistrosHistorico() — auxiliar
-// ═══════════════════════════════════════════════════════ 
+    // ═══════════════════════════════════════════════════════ 
+    // exibirRegistrosHistorico() — auxiliar
+    // ═══════════════════════════════════════════════════════ 
 
-private void exibirRegistrosHistorico(ResultSet rs) {
-    try {
+    private void exibirRegistrosHistorico(ResultSet rs) {
+    
+        try {
         boolean encontrou = false;
 
         while (rs.next()) {
@@ -873,9 +874,9 @@ private void exibirRegistrosHistorico(ResultSet rs) {
             System.out.println("Nenhum histórico encontrado para o período selecionado.");
         }
 
-    } catch (Exception e) {
+        } catch (Exception e) {
         System.out.println(e);
-    }
-}
+        }
+    }   
 
 } // Fechamento da classe DAO

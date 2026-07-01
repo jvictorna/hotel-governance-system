@@ -43,7 +43,7 @@ import service.CheckList;
  * ═══════════════════════════════════════════════════════
  *
  * @author João Adorno
- * @version 5.1
+ * @version 5.2
  */
 
 public class HGSController {
@@ -352,188 +352,197 @@ public class HGSController {
     
     public void realizarInspecao(int posicao, int numQuarto) {
 
-        String resposta;
+    String resposta;
 
-        int origemLimpeza = quartos.get(posicao).getIdOrigemLimpeza();
-        int origemManutencao = quartos.get(posicao).getIdOrigemManutencao();
+    int origemLimpeza = quartos.get(posicao).getIdOrigemLimpeza();
+    int origemManutencao = quartos.get(posicao).getIdOrigemManutencao();
 
-        System.out.println("Deseja iniciar a INSPEÇÃO do quarto " + numQuarto + " ? (S/N) ");
-        resposta = teclado.next();
+    System.out.println("Deseja iniciar a INSPEÇÃO do quarto " + numQuarto + " ? (S/N) ");
+    resposta = teclado.next();
 
-        if (resposta.equalsIgnoreCase("S")) {
+    if (resposta.equalsIgnoreCase("S")) {
 
-            boolean possuiDefeito = false;
+        boolean possuiDefeito = false;
 
-            boolean quartoLuxo
-                    = quartos.get(posicao).getIdModelo() == 4
-                    || quartos.get(posicao).getIdModelo() == 5;
+        boolean quartoLuxo
+                = quartos.get(posicao).getIdModelo() == 4
+                || quartos.get(posicao).getIdModelo() == 5;
 
-            // BLOCO A — Revisão Pós-Manutenção (status 9)
-            if (quartos.get(posicao).getIdStatus() == 9) {
+        // BLOCO A — Revisão Pós-Manutenção (status 9)
+        if (quartos.get(posicao).getIdStatus() == 9) {
 
-                if (quartoLuxo) {
-                    possuiDefeito = CheckList.executarCheckListRevisaoGeralLuxo(teclado);
+            if (quartoLuxo) {
+                possuiDefeito = CheckList.executarCheckListRevisaoGeralLuxo(teclado);
+            } else {
+                possuiDefeito = CheckList.executarCheckListRevisaoGeralComum(teclado);
+            }
+
+            if (possuiDefeito) {
+                int statusAtual = quartos.get(posicao).getIdStatus();
+
+                if (origemManutencao == 5) {
+                    dao.solicitarManutencaoUrgente(quartos.get(posicao).getId(),
+                            numQuarto, statusAtual);
+                    atualizarLista();
+                    System.out.println("=========== A T E N Ç Ã O ================");
+                    System.out.println("DEFEITO TÉCNICO DETECTADO APÓS MANUTENÇÃO ");
+                    System.out.println("QUARTO RETORNA PARA MANUTENÇÃO URGENTE    ");
                 } else {
-                    possuiDefeito = CheckList.executarCheckListRevisaoGeralComum(teclado);
-                }
-
-                if (possuiDefeito) {
-                    int statusAtual = quartos.get(posicao).getIdStatus();
                     dao.bloquearManutencao(quartos.get(posicao).getId(),
                             numQuarto, statusAtual);
                     atualizarLista();
-
                     System.out.println("=========== A T E N Ç Ã O ================");
                     System.out.println("DEFEITO TÉCNICO DETECTADO APÓS MANUTENÇÃO ");
                     System.out.println("QUARTO IRÁ RETORNAR PARA MANUTENÇÃO TÉCNICA");
-                    System.out.println("===========================================");
-                    System.out.println(" --- Pressione ENTER para continuar --- ");
-                    teclado.nextLine();
-                    teclado.nextLine();
-
-                } else {
-                    switch (origemManutencao) {
-                        case 2: // Ocupado
-                        case 5: // Arrumação Pendente
-                            dao.retornarPosManutencao(quartos.get(posicao).getId(), 
-                                           numQuarto, origemManutencao);
-                            atualizarLista();
-                            System.out.println("=========== A T E N Ç Ã O ================");
-                            System.out.println("INSPEÇÃO CONCLUÍDA! Quarto retorna para "
-                                            + (origemManutencao == 2 ? "OCUPADO" : "ARRUMAÇÃO PENDENTE"));
-                            System.out.println("==========================================");
-                            break;
-                        default: // Disponível (1), Sujo (3), Revisão (6)
-                            dao.liberarQuarto(quartos.get(posicao).getId(),
-                                    numQuarto);
-                            atualizarLista();
-                            System.out.println("=========== A T E N Ç Ã O ================");
-                            System.out.println("INSPEÇÃO CONCLUÍDA! Quarto retorna para DISPONÍVEL");
-                            System.out.println("==========================================");
-                            break;
-                    }
-                    System.out.println(" --- Pressione ENTER para continuar --- ");
-                    teclado.nextLine();
-                    teclado.nextLine();
                 }
 
-                // BLOCO B — Limpeza normal (status 4)
+                System.out.println("===========================================");
+                System.out.println(" --- Pressione ENTER para continuar --- ");
+                teclado.nextLine();
+                teclado.nextLine();
+
             } else {
-
-                switch (origemLimpeza) {
-
-                    case 3: // Pós-checkout
-                        if (quartoLuxo) {
-                            possuiDefeito = CheckList.executarCheckListPosCheckoutLuxo(teclado);
-                        } else {
-                            possuiDefeito = CheckList.executarCheckListPosCheckoutComum(teclado);
-                        }
-                        if (possuiDefeito) {
-                            int statusAtual = quartos.get(posicao).getIdStatus();
-                            dao.bloquearManutencao(quartos.get(posicao).getId(),
-                                    numQuarto, statusAtual);
-                            atualizarLista();
-                            System.out.println("=========== A T E N Ç Ã O ================");
-                            System.out.println("DEFEITO TÉCNICO DETECTADO DURANTE CHECK-OUT");
-                            System.out.println("QUARTO EM MANUTENÇÃO - AGUARDANDO TÉCNICO");
-                            System.out.println("===========================================");
-                            System.out.println(" --- Pressione ENTER para continuar --- ");
-                            teclado.nextLine();
-                            teclado.nextLine();
-                        }
+                switch (origemManutencao) {
+                    case 2: // Ocupado
+                    case 5: // Arrumação Pendente
+                        dao.retornarPosManutencao(quartos.get(posicao).getId(),
+                                numQuarto, 2);
+                        atualizarLista();
+                        System.out.println("=========== A T E N Ç Ã O ================");
+                        System.out.println("INSPEÇÃO CONCLUÍDA! Quarto retorna para OCUPADO ");
+                        System.out.println("==========================================");
                         break;
-
-                    case 5: // Arrumação de quarto ocupado
-                        if (quartoLuxo) {
-                            possuiDefeito = CheckList.executarCheckListArrumacaoLuxo(teclado);
-                        } else {
-                            possuiDefeito = CheckList.executarCheckListArrumacaoComum(teclado);
-                        }
-                        if (possuiDefeito) {
-                            int statusAtual = quartos.get(posicao).getIdStatus();
-                            dao.solicitarManutencaoUrgente(quartos.get(posicao).getId(),
-                                    numQuarto, statusAtual);
-                            atualizarLista();
-                            System.out.println("=========== A T E N Ç Ã O ================");
-                            System.out.println("DEFEITO TÉCNICO DETECTADO DURANTE ARRUMAÇÃO");
-                            System.out.println("QUARTO EM MANUTENÇÃO - URGENTE");
-                            System.out.println("===========================================");
-                            System.out.println(" --- Pressione ENTER para continuar --- ");
-                            teclado.nextLine();
-                            teclado.nextLine();
-                        }
-                        break;
-
-                    case 6: // Revisão geral
-                        if (quartoLuxo) {
-                            possuiDefeito = CheckList.executarCheckListRevisaoGeralLuxo(teclado);
-                        } else {
-                            possuiDefeito = CheckList.executarCheckListRevisaoGeralComum(teclado);
-                        }
-                        if (possuiDefeito) {
-                            int statusAtual = quartos.get(posicao).getIdStatus();
-                            dao.bloquearManutencao(quartos.get(posicao).getId(),
-                                    numQuarto, statusAtual);
-                            atualizarLista();
-                            System.out.println("=========== A T E N Ç Ã O ================");
-                            System.out.println("DEFEITO TÉCNICO DETECTADO DURANTE INSPEÇÃO");
-                            System.out.println("QUARTO EM MANUTENÇÃO - AGUARDANDO TÉCNICO");
-                            System.out.println("===========================================");
-                            System.out.println(" --- Pressione ENTER para continuar --- ");
-                            teclado.nextLine();
-                            teclado.nextLine();
-                        }
+                    default: // Disponível (1), Sujo (3), Revisão (6)
+                        dao.liberarQuarto(quartos.get(posicao).getId(),
+                                numQuarto);
+                        atualizarLista();
+                        System.out.println("=========== A T E N Ç Ã O ================");
+                        System.out.println("INSPEÇÃO CONCLUÍDA! Quarto retorna para DISPONÍVEL");
+                        System.out.println("==========================================");
                         break;
                 }
+                System.out.println(" --- Pressione ENTER para continuar --- ");
+                teclado.nextLine();
+                teclado.nextLine();
+            }
 
-                // Finalização da limpeza — apenas para status 4
-                if (quartos.get(posicao).getIdStatus() != 7
-                        && quartos.get(posicao).getIdStatus() != 8) {
+        // BLOCO B — Limpeza normal (status 4)
+        } else {
 
-                    System.out.println("Finalizar limpeza e liberar o quarto " + numQuarto + " ? (S/N) ");
-                    resposta = teclado.next();
+            switch (origemLimpeza) {
 
-                    if (resposta.equalsIgnoreCase("S")) {
-                        if (origemLimpeza == 5) {
-                            dao.concluirArrumacao(quartos.get(posicao).getId(), numQuarto);
-                            atualizarLista();
-                            System.out.println("=========== A T E N Ç Ã O ================");
-                            System.out.println("ARRUMAÇÃO CONCLUÍDA! Quarto segue OCUPADO");
-                            System.out.println("===========================================");
-                            System.out.println(" --- Pressione ENTER para continuar --- ");
-                            teclado.nextLine();
-                            teclado.nextLine();
-                        } else {
-                            dao.liberarQuarto(quartos.get(posicao).getId(),
-                                    numQuarto);
-                            atualizarLista();
-                            System.out.println("=========== A T E N Ç Ã O ================");
-                            System.out.println("O quarto " + numQuarto + " agora está DISPONÍVEL");
-                            System.out.println("===========================================");
-                            System.out.println(" --- Pressione ENTER para continuar --- ");
-                            teclado.nextLine();
-                            teclado.nextLine();
-                        }
+                case 3: // Pós-checkout
+                    if (quartoLuxo) {
+                        possuiDefeito = CheckList.executarCheckListPosCheckoutLuxo(teclado);
                     } else {
+                        possuiDefeito = CheckList.executarCheckListPosCheckoutComum(teclado);
+                    }
+                    if (possuiDefeito) {
+                        int statusAtual = quartos.get(posicao).getIdStatus();
+                        dao.bloquearManutencao(quartos.get(posicao).getId(),
+                                numQuarto, statusAtual);
+                        atualizarLista();
                         System.out.println("=========== A T E N Ç Ã O ================");
-                        System.out.println("AVISO: Limpeza não finalizada! Quarto permanece EM LIMPEZA");
+                        System.out.println("DEFEITO TÉCNICO DETECTADO DURANTE CHECK-OUT");
+                        System.out.println("QUARTO EM MANUTENÇÃO - AGUARDANDO TÉCNICO");
                         System.out.println("===========================================");
                         System.out.println(" --- Pressione ENTER para continuar --- ");
                         teclado.nextLine();
                         teclado.nextLine();
                     }
-                }
+                    break;
+
+                case 5: // Arrumação de quarto ocupado
+                    if (quartoLuxo) {
+                        possuiDefeito = CheckList.executarCheckListArrumacaoLuxo(teclado);
+                    } else {
+                        possuiDefeito = CheckList.executarCheckListArrumacaoComum(teclado);
+                    }
+                    if (possuiDefeito) {
+                        int statusAtual = quartos.get(posicao).getIdStatus();
+                        dao.solicitarManutencaoUrgente(quartos.get(posicao).getId(),
+                                numQuarto, statusAtual);
+                        atualizarLista();
+                        System.out.println("=========== A T E N Ç Ã O ================");
+                        System.out.println("DEFEITO TÉCNICO DETECTADO DURANTE ARRUMAÇÃO");
+                        System.out.println("QUARTO EM MANUTENÇÃO - URGENTE");
+                        System.out.println("===========================================");
+                        System.out.println(" --- Pressione ENTER para continuar --- ");
+                        teclado.nextLine();
+                        teclado.nextLine();
+                    }
+                    break;
+
+                case 6: // Revisão geral
+                    if (quartoLuxo) {
+                        possuiDefeito = CheckList.executarCheckListRevisaoGeralLuxo(teclado);
+                    } else {
+                        possuiDefeito = CheckList.executarCheckListRevisaoGeralComum(teclado);
+                    }
+                    if (possuiDefeito) {
+                        int statusAtual = quartos.get(posicao).getIdStatus();
+                        dao.bloquearManutencao(quartos.get(posicao).getId(),
+                                numQuarto, statusAtual);
+                        atualizarLista();
+                        System.out.println("=========== A T E N Ç Ã O ================");
+                        System.out.println("DEFEITO TÉCNICO DETECTADO DURANTE INSPEÇÃO");
+                        System.out.println("QUARTO EM MANUTENÇÃO - AGUARDANDO TÉCNICO");
+                        System.out.println("===========================================");
+                        System.out.println(" --- Pressione ENTER para continuar --- ");
+                        teclado.nextLine();
+                        teclado.nextLine();
+                    }
+                    break;
             }
 
-        } else {
-            System.out.println("=========== A T E N Ç Ã O ================");
-            System.out.println("Check-list NÃO iniciado! ");
-            System.out.println("===========================================");
-            System.out.println(" --- Pressione ENTER para continuar --- ");
-            teclado.nextLine();
-            teclado.nextLine();
+            // Finalização da limpeza — apenas para status 4
+            if (quartos.get(posicao).getIdStatus() != 7
+                    && quartos.get(posicao).getIdStatus() != 8) {
+
+                System.out.println("Finalizar limpeza e liberar o quarto " + numQuarto + " ? (S/N) ");
+                resposta = teclado.next();
+
+                if (resposta.equalsIgnoreCase("S")) {
+                    if (origemLimpeza == 5) {
+                        dao.concluirArrumacao(quartos.get(posicao).getId(), numQuarto);
+                        atualizarLista();
+                        System.out.println("=========== A T E N Ç Ã O ================");
+                        System.out.println("ARRUMAÇÃO CONCLUÍDA! Quarto segue OCUPADO");
+                        System.out.println("===========================================");
+                        System.out.println(" --- Pressione ENTER para continuar --- ");
+                        teclado.nextLine();
+                        teclado.nextLine();
+                    } else {
+                        dao.liberarQuarto(quartos.get(posicao).getId(),
+                                numQuarto);
+                        atualizarLista();
+                        System.out.println("=========== A T E N Ç Ã O ================");
+                        System.out.println("O quarto " + numQuarto + " agora está DISPONÍVEL");
+                        System.out.println("===========================================");
+                        System.out.println(" --- Pressione ENTER para continuar --- ");
+                        teclado.nextLine();
+                        teclado.nextLine();
+                    }
+                } else {
+                    System.out.println("=========== A T E N Ç Ã O ================");
+                    System.out.println("AVISO: Limpeza não finalizada! Quarto permanece EM LIMPEZA");
+                    System.out.println("===========================================");
+                    System.out.println(" --- Pressione ENTER para continuar --- ");
+                    teclado.nextLine();
+                    teclado.nextLine();
+                }
+            }
         }
+
+    } else {
+        System.out.println("=========== A T E N Ç Ã O ================");
+        System.out.println("Check-list NÃO iniciado! ");
+        System.out.println("===========================================");
+        System.out.println(" --- Pressione ENTER para continuar --- ");
+        teclado.nextLine();
+        teclado.nextLine();
     }
+}
 
     // ═══════════════════════════════════════════════════════ 
     // FLUXO DE MANUTENÇÃO

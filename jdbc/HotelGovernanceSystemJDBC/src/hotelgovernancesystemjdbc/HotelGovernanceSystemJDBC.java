@@ -31,7 +31,7 @@ import controller.HGSController;
  * ═══════════════════════════════════════════════════════
  *
  * @author João Adorno
- * @version 5.1
+ * @version 5.2
  */
 
 public class HotelGovernanceSystemJDBC {
