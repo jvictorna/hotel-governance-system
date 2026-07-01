@@ -162,6 +162,17 @@ persistência real de dados, arquitetura em camadas e relatórios gerenciais.
   agora oferece filtro por últimos 7, 15 ou 30 dias, intervalo personalizado
   (de X até Y) ou exibição completa sem filtro.
 
+---
+
+## 🔧 Atualizações da Versão 5.2 — Correção de Fluxo Pós-Manutenção
+
+- **Correção do fluxo de reingresso em manutenção:** quando um defeito é
+  detectado na inspeção pós-manutenção de um quarto com hóspede presente
+  (origem `MANUTENCAO_URGENTE`), o sistema agora retorna corretamente para
+  **Manutenção Urgente** em vez de Manutenção Técnica, preservando a
+  prioridade operacional do atendimento.
+
+
 ## 🔮 Melhorias Planejadas
 
 - **Alerta de manutenção urgente com hóspede:** quartos que retornam de 
@@ -219,3 +230,4 @@ persistência real de dados, arquitetura em camadas e relatórios gerenciais.
 | v4.2 MySQL | Histórico de operações e relatórios — tabela historico_operacoes e campo data_ultima_saida |
 | v5.0 JDBC | Sistema JDBC completo — arquitetura Main → Controller → DAO, histórico de operações, relatórios e alerta de tempo fechado |
 | v5.1 JDBC | Cancelamento via 0, correção semântica do histórico e filtro por período |
+| v5.2 JDBC | Correção de fluxo — reingresso em Manutenção Urgente na revisão pós-manutenção com hóspede |
